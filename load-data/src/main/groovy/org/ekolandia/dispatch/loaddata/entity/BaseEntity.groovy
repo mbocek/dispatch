@@ -27,7 +27,7 @@ import javax.persistence.MappedSuperclass;
 @MappedSuperclass
 class BaseEntity implements Serializable {
 	
-	Date lastUpdated;
+	Date lastUpdated
 	
-	Boolean active;
+	Boolean active
 }
