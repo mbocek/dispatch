@@ -18,25 +18,18 @@
  */
 package org.ekolandia.dispatch.loaddata
 
-import org.springframework.boot.SpringApplication
-import org.springframework.boot.autoconfigure.SpringBootApplication
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
-import org.springframework.context.annotation.ComponentScan
-
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
 
 /**
  * @author Michal Bocek
  * @since 1.0.0
  */
-@ComponentScan
-@RestController
-class LoadDataController {
+@SpringBootApplication
+class ApplicationEntryPoint {
 
-	@RequestMapping(value="/data")
-	def getData() {
-		[
-			"test" : "Data"
-		]
-    }
+	static main(args) {
+		SpringApplication.run LoadDataController, args
+	}
 }

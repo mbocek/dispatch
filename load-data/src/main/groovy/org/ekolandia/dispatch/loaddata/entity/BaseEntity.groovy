@@ -16,27 +16,18 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.ekolandia.dispatch.loaddata
+package org.ekolandia.dispatch.loaddata.entity
 
-import org.springframework.boot.SpringApplication
-import org.springframework.boot.autoconfigure.SpringBootApplication
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
-import org.springframework.context.annotation.ComponentScan
-
+import javax.persistence.MappedSuperclass;
 
 /**
  * @author Michal Bocek
  * @since 1.0.0
  */
-@ComponentScan
-@RestController
-class LoadDataController {
-
-	@RequestMapping(value="/data")
-	def getData() {
-		[
-			"test" : "Data"
-		]
-    }
+@MappedSuperclass
+class BaseEntity implements Serializable {
+	
+	Date lastUpdated;
+	
+	Boolean active;
 }
