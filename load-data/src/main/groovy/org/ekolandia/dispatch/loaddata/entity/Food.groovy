@@ -18,15 +18,33 @@
  */
 package org.ekolandia.dispatch.loaddata.entity
 
-import javax.persistence.MappedSuperclass
+import groovy.transform.ToString
+
+import javax.persistence.CascadeType
+import javax.persistence.Column
+import javax.persistence.GeneratedValue
+import javax.persistence.Id
+import javax.persistence.JoinColumn
+import javax.persistence.OneToMany
 
 /**
  * @author Michal Bocek
  * @since 1.0.0
  */
-@MappedSuperclass
-class BaseEntity implements Serializable {
+@ToString
+class Food extends BaseEntity {
+
+	@Id
+	@GeneratedValue
+	Long id
+
+	Long sortId
 	
-	Date lastUpdated
-	Boolean active
+	@Column(nullable = false, length = 1000)
+	String name
+	
+	@OneToMany(cascade = [ CascadeType.ALL ])
+	@JoinColumn(name = "FOOD_ID", referencedColumnName = "ID", nullable = false)
+	private final List<Material> comments = new ArrayList<Material>();
+
 }

@@ -18,15 +18,30 @@
  */
 package org.ekolandia.dispatch.loaddata.entity
 
-import javax.persistence.MappedSuperclass
+import javax.persistence.Column
+import javax.persistence.GeneratedValue
+import javax.persistence.Id
+
+import groovy.transform.ToString
 
 /**
  * @author Michal Bocek
  * @since 1.0.0
  */
-@MappedSuperclass
-class BaseEntity implements Serializable {
+@ToString
+class Material extends BaseEntity {
+
+	@Id
+	@GeneratedValue
+	Long id
 	
-	Date lastUpdated
-	Boolean active
+	@Column(nullable = false, length = 100)
+	String code
+	
+	@Column(nullable = false, length = 200)
+	String name
+	
+	Long weight
+	
+	Long meatWeight
 }

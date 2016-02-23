@@ -16,17 +16,15 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.ekolandia.dispatch.loaddata.entity
+package org.ekolandia.dispatch.loaddata
 
-import javax.persistence.MappedSuperclass
+import org.springframework.data.repository.CrudRepository
+import org.ekolandia.dispatch.loaddata.entity.Food
 
 /**
  * @author Michal Bocek
  * @since 1.0.0
  */
-@MappedSuperclass
-class BaseEntity implements Serializable {
-	
-	Date lastUpdated
-	Boolean active
+interface FoodRepository extends CrudRepository<Food, Long> {
+
 }
