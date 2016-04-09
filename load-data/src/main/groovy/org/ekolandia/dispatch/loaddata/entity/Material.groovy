@@ -19,6 +19,7 @@
 package org.ekolandia.dispatch.loaddata.entity
 
 import javax.persistence.Column
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue
 import javax.persistence.Id
 
@@ -29,6 +30,7 @@ import groovy.transform.ToString
  * @since 1.0.0
  */
 @ToString
+@Entity
 class Material extends BaseEntity {
 
 	@Id

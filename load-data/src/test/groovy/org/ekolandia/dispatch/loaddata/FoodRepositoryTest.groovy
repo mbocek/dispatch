@@ -16,37 +16,22 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.ekolandia.dispatch.loaddata.entity
+package org.ekolandia.dispatch.loaddata
 
-import groovy.transform.ToString
+import org.springframework.boot.test.SpringApplicationContextLoader;
+import org.springframework.test.context.ContextConfiguration;
 
-import javax.persistence.CascadeType
-import javax.persistence.Column
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue
-import javax.persistence.Id
-import javax.persistence.JoinColumn
-import javax.persistence.OneToMany
+import spock.lang.Specification
 
 /**
  * @author Michal Bocek
  * @since 1.0.0
  */
-@ToString
-@Entity
-class Food extends BaseEntity {
+@ContextConfiguration(loader = SpringApplicationContextLoader, classes = ApplicationEntryPoint)
+class FoodRepositoryTest extends Specification {
 
-	@Id
-	@GeneratedValue
-	Long id
-
-	Long sortId
-	
-	@Column(nullable = false, length = 1000)
-	String name
-	
-	@OneToMany(cascade = [ CascadeType.ALL ])
-	@JoinColumn(name = "FOOD_ID", referencedColumnName = "ID", nullable = false)
-	private final List<Material> comments = new ArrayList<Material>();
-
+	def "sample Tests"() {
+		expect:
+			1 == 1
+	}
 }
