@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="add table: material" author="mbocek">
+        <createTable tableName="MATERIAL" remarks="Material table">
+            <column name="ID" type="long">
+                <constraints primaryKey="true" primaryKeyName="PK_MATERIAL" nullable="false"/>
+            </column>
+            <column name="CODE" type="java.lang.String(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="NAME" type="java.lang.String(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="TOTAL_WEIGHT" type="java.lang.Integer">
+                <constraints nullable="false"/>
+            </column>
+            <column name="MEAT_WEIGHT" type="java.lang.Integer">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ACTIVE" type="java.lang.Boolean">
+                <constraints nullable="false"/>
+            </column>
+            <column name="LAST_UPDATED" type="java.util.Date">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="add table: food" author="mbocek">
+        <createTable tableName="FOOD" remarks="Food table">
+            <column name="ID" type="java.lang.Long">
+                <constraints primaryKey="true" primaryKeyName="PK_FOOD" nullable="false"/>
+            </column>
+            <column name="SORT_ID" type="java.lang.Long">
+                <constraints nullable="false"/>
+            </column>
+            <column name="NAME" type="java.lang.String(1000)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    
+    <changeSet id="add table: food_material" author="mbocek">
+        <createTable tableName="FOOD_MATERIAL" remarks="Food material association table">
+            <column name="FOOD_ID" type="java.lang.Long">
+                <constraints nullable="false"/>
+            </column>
+            <column name="MATERIAL_ID" type="java.lang.Long">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="create: food meterial primary key" author="mbocek">
+        <addPrimaryKey tableName="FOOD_MATERIAL" columnNames="FOOD,MATERIAL"
+            constraintName="PK_USER_ROLE" />
+    </changeSet>
+
+    <changeSet id="add table: client" author="mbocek">
+        <createTable tableName="CLIENT" remarks="Client table">
+            <column name="ID" type="long">
+                <constraints primaryKey="true" primaryKeyName="PK_CLIENT" nullable="false"/>
+            </column>
+            <column name="CODE" type="java.lang.Long">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CATEGORY" type="java.lang.String(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="GROUP" type="java.lang.Long">
+                <constraints nullable="false"/>
+            </column>
+            <column name="NAME" type="java.lang.String(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ACTIVE" type="java.lang.Boolean">
+                <constraints nullable="false"/>
+            </column>
+            <column name="LAST_UPDATED" type="java.util.Date">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    
+    <changeSet id="add table: order" author="mbocek">
+        <createTable tableName="ORDER" remarks="Order table">
+            <column name="ID" type="long">
+                <constraints primaryKey="true" primaryKeyName="PK_ORDER" nullable="false"/>
+            </column>
+            <column name="FOOD_ID" type="java.lang.Long">
+                <constraints nullable="false" foreignKeyName="FK_ORDER_FOOD" referencedTableName="FOOD" referencedColumnNames="ID"/>
+            </column>
+            <column name="CLIENT_ID" type="java.lang.Long">
+                <constraints nullable="false" foreignKeyName="FK_ORDER_CLIENT" referencedTableName="CLIENT" referencedColumnNames="ID"/>
+            </column>
+            <column name="CATEGORY" type="java.lang.String(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ORDER_PLACED_DATE" type="java.util.Date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ORDER_DATE" type="java.util.Date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="NUMBER_OF_ORDERS" type="java.lang.Integers">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ACTIVE" type="java.lang.Boolean">
+                <constraints nullable="false"/>
+            </column>
+            <column name="LAST_UPDATED" type="java.util.Date">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>    
+</databaseChangeLog>

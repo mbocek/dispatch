@@ -20,14 +20,10 @@ package org.ekolandia.dispatch.loaddata.entity
 
 import groovy.transform.ToString
 
-import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
 import javax.persistence.Id
-import javax.persistence.JoinColumn
-import javax.persistence.JoinTable
-import javax.persistence.ManyToMany
 
 import org.ekolandia.dispatch.loaddata.version.Constants
 
@@ -35,24 +31,20 @@ import org.ekolandia.dispatch.loaddata.version.Constants
  * @author Michal Bocek
  * @since 1.0.0
  */
-@ToString
 @Entity
-class Food extends BaseEntity implements Serializable {
-
+@ToString
+class Client extends BaseEntity implements Serializable {
+    
     private static final long serialVersionUID = Constants.VERSION;
     
-	@Id	@GeneratedValue(strategy = GenerationType.AUTO)
-	Long id
-
-	Long sortId
-	
-	@Column(nullable = false, length = 1000)
-	String name
-	
-    @ManyToMany
-    @JoinTable(name="FOOD_MATERIAL", joinColumns=
-        @JoinColumn(name="FOOD_ID", referencedColumnName="ID"), inverseJoinColumns=
-        @JoinColumn(name="MATERIAL_ID", referencedColumnName="ID"))
-	private final List<Material> materials = new ArrayList<Material>();
-
+    @Id @GeneratedValue(strategy = GenerationType.AUTO)
+    Long id;
+    
+    Long code;
+    
+    String category;
+    
+    Long group;
+    
+    String name;
 }

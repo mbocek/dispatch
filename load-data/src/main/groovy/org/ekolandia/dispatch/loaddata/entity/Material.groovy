@@ -18,12 +18,15 @@
  */
 package org.ekolandia.dispatch.loaddata.entity
 
+import groovy.transform.ToString
+
 import javax.persistence.Column
-import javax.persistence.Entity;
+import javax.persistence.Entity
 import javax.persistence.GeneratedValue
+import javax.persistence.GenerationType
 import javax.persistence.Id
 
-import groovy.transform.ToString
+import org.ekolandia.dispatch.loaddata.version.Constants
 
 /**
  * @author Michal Bocek
@@ -31,10 +34,11 @@ import groovy.transform.ToString
  */
 @ToString
 @Entity
-class Material extends BaseEntity {
+class Material extends BaseEntity implements Serializable {
 
-	@Id
-	@GeneratedValue
+    private static final long serialVersionUID = Constants.VERSION;
+    
+	@Id	@GeneratedValue(strategy = GenerationType.AUTO)
 	Long id
 	
 	@Column(nullable = false, length = 100)
@@ -43,7 +47,7 @@ class Material extends BaseEntity {
 	@Column(nullable = false, length = 200)
 	String name
 	
-	Long weight
+	Integer totalWeight
 	
-	Long meatWeight
+	Integer meatWeight
 }

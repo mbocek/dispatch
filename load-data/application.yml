@@ -2,11 +2,15 @@ spring:
     application:
         name: dispatcher
 
+#liquibase:
+#    change-log: db/changelog/db.changelog-master.xml  
+
 ---
 spring:
     profiles: test
     datasource:
-        url: jdbc:h2:mem:AZ;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+        #url: jdbc:h2:mem:AZ;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+        url: jdbc:h2:file:./target/db/dispatch;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
         driver: org.h2.Driver
 
 #    datasource:

@@ -16,27 +16,13 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.ekolandia.dispatch.loaddata.entity
-
-import javax.persistence.Column
-import javax.persistence.MappedSuperclass
-import javax.persistence.Temporal
-import javax.persistence.TemporalType
-
-import org.springframework.data.annotation.LastModifiedDate
+package org.ekolandia.dispatch.loaddata.version;
 
 /**
  * @author Michal Bocek
  * @since 1.0.0
  */
-@MappedSuperclass
-class BaseEntity implements Serializable {
-	
-    @LastModifiedDate
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "LAST_UPDATED", nullable = false)
-	Date lastUpdated
+public interface Constants {
     
-    @Column(nullable = false)
-	Boolean active
+    long VERSION = 1000000L;
 }
