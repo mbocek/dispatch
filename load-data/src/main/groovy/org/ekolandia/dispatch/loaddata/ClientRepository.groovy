@@ -18,20 +18,13 @@
  */
 package org.ekolandia.dispatch.loaddata
 
-import org.springframework.boot.test.SpringApplicationContextLoader;
-import org.springframework.test.context.ContextConfiguration;
-
-import spock.lang.Specification
+import org.springframework.data.repository.CrudRepository
+import org.ekolandia.dispatch.loaddata.entity.Client
 
 /**
  * @author Michal Bocek
  * @since 1.0.0
  */
-@ContextConfiguration(loader = SpringApplicationContextLoader, classes = ApplicationEntryPoint)
-class FoodRepositoryTest extends Specification {
+interface ClientRepository extends CrudRepository<Client, Long> {
 
-	def "sample Tests"() {
-		expect:
-			1 == 1
-	}
 }

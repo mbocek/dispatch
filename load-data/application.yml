@@ -2,19 +2,40 @@ spring:
     application:
         name: dispatcher
 
-#liquibase:
-#    change-log: db/changelog/db.changelog-master.xml  
+liquibase:
+    change-log: db/changelog/db.changelog-master.xml
 
 ---
 spring:
     profiles: test
     datasource:
-        #url: jdbc:h2:mem:AZ;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
-        url: jdbc:h2:file:./target/db/dispatch;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+        url: jdbc:h2:file:./target/db/dispatch-test;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;MODE=PostgreSQL
         driver: org.h2.Driver
+        username: sa
+        password: sa
+    jpa:
+        hibernate:
+            ddl-auto: none
+        properties:
+            hibernate:
+                dialect: org.hibernate.dialect.PostgreSQL9Dialect
 
-#    datasource:
-#        driverClassName: com.mysql.jdbc.Driver
-#        url: jdbc:mysql://localhost/test
+---
+spring:
+    profiles: development
+    datasource:
+        #url: jdbc:h2:mem:AZ;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+        url: jdbc:h2:file:./target/db/dispatch;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;MODE=PostgreSQL
+        driver: org.h2.Driver
+        username: sa
+        password: sa
+    jpa:
+        hibernate:
+            ddl-auto: none
+        properties:
+            hibernate:
+                dialect: org.hibernate.dialect.PostgreSQL9Dialect
+
+
 #server:
 #    port: 9000

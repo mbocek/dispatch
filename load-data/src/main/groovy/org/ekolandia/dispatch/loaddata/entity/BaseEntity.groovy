@@ -31,12 +31,12 @@ import org.springframework.data.annotation.LastModifiedDate
  */
 @MappedSuperclass
 class BaseEntity implements Serializable {
-	
+    
     @LastModifiedDate
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "LAST_UPDATED", nullable = false)
-	Date lastUpdated
+    @Column(nullable = false)
+    Date lastUpdated
     
     @Column(nullable = false)
-	Boolean active
+    Boolean active
 }

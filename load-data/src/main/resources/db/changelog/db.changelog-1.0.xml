@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext 
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd 
+                        http://www.liquibase.org/xml/ns/dbchangelog 
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet author="mbocek" id="add sequence: client">
+        <createSequence sequenceName="CLIENT_SEQ" />
+    </changeSet>
+    <changeSet author="mbocek" id="add sequence: food">
+        <createSequence sequenceName="FOOD_SEQ" />
+    </changeSet>
+    <changeSet author="mbocek" id="add sequence: import data">
+        <createSequence sequenceName="IMPORT_DATA_SEQ" />
+    </changeSet>
+    <changeSet author="mbocek" id="add sequence: material">
+        <createSequence sequenceName="MATERIAL_SEQ" />
+    </changeSet>
+    <changeSet author="mbocek" id="add sequence: order">
+        <createSequence sequenceName="ORDER_SEQ" />
+    </changeSet>
+
+    <changeSet author="mbocek" id="add table: client">
+        <createTable tableName="CLIENT">
+            <column name="ID" type="java.lang.Long">
+                <constraints nullable="false" />
+            </column>
+            <column name="ACTIVE" type="java.lang.Boolean">
+                <constraints nullable="false" />
+            </column>
+            <column name="LAST_UPDATED" type="java.util.Date">
+                <constraints nullable="false" />
+            </column>
+            <column name="CATEGORY" type="java.lang.String(100)">
+                <constraints nullable="false" />
+            </column>
+            <column name="CODE" type="java.lang.Long">
+                <constraints nullable="false" />
+            </column>
+            <column name="GROUP_ID" type="java.lang.Long">
+                <constraints nullable="false" />
+            </column>
+            <column name="NAME" type="java.lang.String(200)">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="mbocek" id="add table: food">
+        <createTable tableName="FOOD">
+            <column name="ID" type="java.lang.Long">
+                <constraints nullable="false" />
+            </column>
+            <column name="ACTIVE" type="java.lang.Boolean">
+                <constraints nullable="false" />
+            </column>
+            <column name="LAST_UPDATED" type="java.util.Date">
+                <constraints nullable="false" />
+            </column>
+            <column name="NAME" type="java.lang.String(1000)">
+                <constraints nullable="false" />
+            </column>
+            <column name="SORT_ID" type="java.lang.Long">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="mbocek" id="add table: association table food material">
+        <createTable tableName="FOOD_MATERIAL">
+            <column name="FOOD_ID" type="java.lang.Long">
+                <constraints nullable="false" />
+            </column>
+            <column name="MATERIAL_ID" type="java.lang.Long">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="mbocek" id="add table: import data">
+        <createTable tableName="IMPORT_DATA">
+            <column name="ID" type="java.lang.Long">
+                <constraints nullable="false" />
+            </column>
+            <column name="LAST_IMPORTED" type="java.util.Date">
+                <constraints nullable="false" />
+            </column>
+            <column name="STATE" type="java.lang.String(255)" />
+        </createTable>
+    </changeSet>
+    <changeSet author="mbocek" id="add table: material">
+        <createTable tableName="MATERIAL">
+            <column name="ID" type="java.lang.Long">
+                <constraints nullable="false" />
+            </column>
+            <column name="ACTIVE" type="java.lang.Boolean">
+                <constraints nullable="false" />
+            </column>
+            <column name="LAST_UPDATED" type="java.util.Date">
+                <constraints nullable="false" />
+            </column>
+            <column name="CODE" type="java.lang.String(100)">
+                <constraints nullable="false" />
+            </column>
+            <column name="MEAT_WEIGHT" type="java.lang.Integer">
+                <constraints nullable="false" />
+            </column>
+            <column name="NAME" type="java.lang.String(200)">
+                <constraints nullable="false" />
+            </column>
+            <column name="TOTAL_WEIGHT" type="java.lang.Integer">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="mbocek" id="add table: order">
+        <createTable tableName="ORDER">
+            <column name="ID" type="java.lang.Long">
+                <constraints nullable="false" />
+            </column>
+            <column name="ACTIVE" type="java.lang.Boolean">
+                <constraints nullable="false" />
+            </column>
+            <column name="LAST_UPDATED" type="java.util.Date">
+                <constraints nullable="false" />
+            </column>
+            <column name="CATEGORY" type="java.lang.String(200)">
+                <constraints nullable="false" />
+            </column>
+            <column name="NUMBER_OF_ORDERS" type="java.lang.Integer">
+                <constraints nullable="false" />
+            </column>
+            <column name="ORDER_DATE" type="java.util.Date">
+                <constraints nullable="false" />
+            </column>
+            <column name="ORDER_PLACED_DATE" type="java.util.Date">
+                <constraints nullable="false" />
+            </column>
+            <column name="CLIENT_ID" type="java.lang.Long">
+                <constraints nullable="false" />
+            </column>
+            <column name="FOOD_ID" type="java.lang.Long">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+    </changeSet>
+    
+    <changeSet author="mbocek" id="add primary key: food">
+        <addPrimaryKey columnNames="ID" constraintName="FOOD_PK" tableName="FOOD" />
+    </changeSet>
+    <changeSet author="mbocek" id="add primary key: material">
+        <addPrimaryKey columnNames="ID" constraintName="MATERIAL_PK" tableName="MATERIAL" />
+    </changeSet>
+    <changeSet author="mbocek" id="add primary key: order">
+        <addPrimaryKey columnNames="ID" constraintName="ORDER_PK" tableName="ORDER" />
+    </changeSet>
+    <changeSet author="mbocek" id="add primary key: client">
+        <addPrimaryKey columnNames="ID" constraintName="CLIENT_PK" tableName="CLIENT" />
+    </changeSet>
+    <changeSet author="mbocek" id="add primary key: import_data">
+        <addPrimaryKey columnNames="ID" constraintName="IMPORT_DATA_PK" tableName="IMPORT_DATA" />
+    </changeSet>
+    
+    <changeSet author="mbocek" id="add index for foreign key: food_material food_id">
+        <createIndex indexName="IDX_FOOD_MATERIAL_FOOD_ID" tableName="FOOD_MATERIAL">
+            <column name="FOOD_ID" />
+        </createIndex>
+    </changeSet>
+    <changeSet author="mbocek" id="add index for foreign key: order client_id">
+        <createIndex indexName="IDX_ORDER_CLIENT_ID" tableName="ORDER">
+            <column name="CLIENT_ID" />
+        </createIndex>
+    </changeSet>
+    <changeSet author="mbocek" id="add index for foreign key: food_material client_id">
+        <createIndex indexName="IDX_FOOD_MATERIAL_MATERIAL_ID" tableName="FOOD_MATERIAL">
+            <column name="MATERIAL_ID" />
+        </createIndex>
+    </changeSet>
+    <changeSet author="mbocek" id="add index for foreign key: order food_id">
+        <createIndex indexName="IDX_ORDER_FOOD_ID" tableName="ORDER">
+            <column name="FOOD_ID" />
+        </createIndex>
+    </changeSet>
+    
+    <changeSet author="mbocek" id="add foreign key: food_material client_id">
+        <addForeignKeyConstraint baseColumnNames="FOOD_ID" baseTableName="FOOD_MATERIAL"
+            constraintName="FK_FOOD_MATERIAL_FOOD_ID" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+            onUpdate="RESTRICT" referencedColumnNames="ID" referencedTableName="FOOD" />
+    </changeSet>
+    <changeSet author="mbocek" id="add foreign key: order client_id">
+        <addForeignKeyConstraint baseColumnNames="CLIENT_ID" baseTableName="ORDER"
+            constraintName="FK_ORDER_CLIENT_ID" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+            onUpdate="RESTRICT" referencedColumnNames="ID" referencedTableName="CLIENT" />
+    </changeSet>
+    <changeSet author="mbocek" id="add foreign key: food_material material_id">
+        <addForeignKeyConstraint baseColumnNames="MATERIAL_ID" baseTableName="FOOD_MATERIAL"
+            constraintName="FK_FOOD_MATERIAL_MATERIAL_ID" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+            onUpdate="RESTRICT" referencedColumnNames="ID" referencedTableName="MATERIAL" />
+    </changeSet>
+    <changeSet author="mbocek" id="add foreign key: order food_id">
+        <addForeignKeyConstraint baseColumnNames="FOOD_ID" baseTableName="ORDER"
+            constraintName="FK_ORDER_FOOD_ID" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+            onUpdate="RESTRICT" referencedColumnNames="ID" referencedTableName="FOOD" />
+    </changeSet>
+
+</databaseChangeLog>

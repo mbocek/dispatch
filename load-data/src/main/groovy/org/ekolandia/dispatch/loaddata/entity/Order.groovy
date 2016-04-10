@@ -20,6 +20,7 @@ package org.ekolandia.dispatch.loaddata.entity
 
 import groovy.transform.ToString
 
+import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.FetchType
 import javax.persistence.GeneratedValue
@@ -27,6 +28,8 @@ import javax.persistence.GenerationType
 import javax.persistence.Id
 import javax.persistence.JoinColumn
 import javax.persistence.ManyToOne
+import javax.persistence.SequenceGenerator
+import javax.persistence.Table
 
 import org.ekolandia.dispatch.loaddata.version.Constants
 
@@ -35,12 +38,15 @@ import org.ekolandia.dispatch.loaddata.version.Constants
  * @since 1.0.0
  */
 @Entity
+@Table(name = "ORDER_DATA")
 @ToString
 class Order extends BaseEntity implements Serializable {
     
     private static final long serialVersionUID = Constants.VERSION;
     
-    @Id @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ORDER_SEQ")
+    @SequenceGenerator(name = "ORDER_SEQ", sequenceName = "ORDER_SEQ", allocationSize = 1)
     Long id;
     
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -48,14 +54,18 @@ class Order extends BaseEntity implements Serializable {
     Food food;
     
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "CLIENT_ID")    
+    @JoinColumn(name = "CLIENT_ID")
     Client client;
     
+    @Column(length = 200, nullable = false)
     String category;
     
+    @Column(nullable = false)
     Date orderPlacedDate;
     
+    @Column(nullable = false)
     Date orderDate;
     
+    @Column(nullable = false)
     Integer numberOfOrders;
 }

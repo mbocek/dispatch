@@ -28,6 +28,7 @@ import javax.persistence.Id
 import javax.persistence.JoinColumn
 import javax.persistence.JoinTable
 import javax.persistence.ManyToMany
+import javax.persistence.SequenceGenerator
 
 import org.ekolandia.dispatch.loaddata.version.Constants
 
@@ -40,19 +41,22 @@ import org.ekolandia.dispatch.loaddata.version.Constants
 class Food extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = Constants.VERSION;
-    
-	@Id	@GeneratedValue(strategy = GenerationType.AUTO)
-	Long id
 
-	Long sortId
-	
-	@Column(nullable = false, length = 1000)
-	String name
-	
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "FOOD_SEQ")
+    @SequenceGenerator(name = "FOOD_SEQ", sequenceName = "FOOD_SEQ", allocationSize = 1)
+    Long id
+
+    @Column(nullable = false)
+    Long sortId
+
+    @Column(nullable = false, length = 1000)
+    String name
+
     @ManyToMany
     @JoinTable(name="FOOD_MATERIAL", joinColumns=
         @JoinColumn(name="FOOD_ID", referencedColumnName="ID"), inverseJoinColumns=
         @JoinColumn(name="MATERIAL_ID", referencedColumnName="ID"))
-	private final List<Material> materials = new ArrayList<Material>();
+    private final List<Material> materials = new ArrayList<Material>();
 
 }

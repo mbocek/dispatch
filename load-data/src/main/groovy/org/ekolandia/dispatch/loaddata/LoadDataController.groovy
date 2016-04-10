@@ -34,10 +34,10 @@ import org.springframework.context.annotation.ComponentScan
 @RestController
 class LoadDataController {
 
-	@RequestMapping(value = "/data", method = RequestMethod.POST)
-	def getData() {
-		[
-			"test" : "Data"
-		]
+    @RequestMapping(value = "/data", method = RequestMethod.POST)
+    def getData() {
+        [
+            "test" : "Data"
+        ]
     }
 }

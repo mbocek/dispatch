@@ -20,31 +20,42 @@ package org.ekolandia.dispatch.loaddata.entity
 
 import groovy.transform.ToString
 
+import javax.persistence.Column;
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
 import javax.persistence.Id
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 import org.ekolandia.dispatch.loaddata.version.Constants
+
 
 /**
  * @author Michal Bocek
  * @since 1.0.0
  */
 @Entity
+@Table(name = "CLIENT_DATA")
 @ToString
 class Client extends BaseEntity implements Serializable {
     
     private static final long serialVersionUID = Constants.VERSION;
     
-    @Id @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id 
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CLIENT_SEQ")
+    @SequenceGenerator(name = "CLIENT_SEQ", sequenceName = "CLIENT_SEQ", allocationSize = 1)
     Long id;
     
+    @Column(nullable = false)
     Long code;
     
+    @Column(length = 100, nullable = false)
     String category;
     
-    Long group;
+    @Column(nullable = false)
+    Long groupId;
     
+    @Column(length = 200, nullable = false)
     String name;
 }

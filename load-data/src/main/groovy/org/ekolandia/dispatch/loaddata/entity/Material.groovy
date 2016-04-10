@@ -25,6 +25,7 @@ import javax.persistence.Entity
 import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
 import javax.persistence.Id
+import javax.persistence.SequenceGenerator
 
 import org.ekolandia.dispatch.loaddata.version.Constants
 
@@ -38,16 +39,20 @@ class Material extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = Constants.VERSION;
     
-	@Id	@GeneratedValue(strategy = GenerationType.AUTO)
-	Long id
-	
-	@Column(nullable = false, length = 100)
-	String code
-	
-	@Column(nullable = false, length = 200)
-	String name
-	
-	Integer totalWeight
-	
-	Integer meatWeight
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "MATERIAL_SEQ")
+    @SequenceGenerator(name = "MATERIAL_SEQ", sequenceName = "MATERIAL_SEQ", allocationSize = 1)
+    Long id
+
+    @Column(nullable = false, length = 100)
+    String code
+
+    @Column(nullable = false, length = 200)
+    String name
+
+    @Column(nullable = false)
+    Integer totalWeight
+
+    @Column(nullable = false)
+    Integer meatWeight
 }
