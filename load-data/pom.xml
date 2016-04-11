@@ -5,6 +5,7 @@
 
     <artifactId>load-data</artifactId>
     <packaging>jar</packaging>
+    <name>Dispatch: load data service</name>
 
     <parent>
         <groupId>org.ekolandia.dispatch</groupId>
@@ -18,6 +19,11 @@
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>util</artifactId>
+            <version>${project.version}</version>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -75,7 +81,7 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>            
+            </plugin>
         </plugins>
     </build>
 </project>

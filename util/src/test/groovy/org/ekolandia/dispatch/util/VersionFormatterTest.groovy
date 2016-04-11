@@ -16,21 +16,29 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.ekolandia.dispatch.util;
+package org.ekolandia.dispatch.util
+
+import static org.junit.Assert.*
+import org.junit.Test
+import spock.lang.Specification
 
 /**
  * @author Michal Bocek
  * @since 1.0.0
  */
-public final class VersionFormatter {
+class VersionFormatterTest extends Specification {
 
-    private static final String VERSION_SEPATATOR = "."; 
-    
-    public static String format(Long version) {
-        long fix = version % 1000;
-        long minor = (version / 1000) % 1000;
-        long major = (version / 1000000);
-
-        return major + VERSION_SEPATATOR + minor + VERSION_SEPATATOR + fix;
+    def "test formatter"() {
+        given:
+            String stringVersion
+        when:
+            stringVersion = VersionFormatter.format(version)
+        then:
+            stringVersion == expected
+        where:
+            version|expected
+            1000000|"1.0.0"
+            2030040|"2.30.40"
     }
+
 }

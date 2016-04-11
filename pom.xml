@@ -8,6 +8,7 @@
     <artifactId>dispatch</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
+    <name>Dispatch: parent</name>
     
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -17,6 +18,7 @@
     
     <modules>
     	<module>load-data</module>
+    	<module>util</module>
     </modules>
 
     <properties>
@@ -24,4 +26,15 @@
         <java.version>1.8</java.version>
     </properties>
     
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.codehaus.gmavenplus</groupId>
+                    <artifactId>gmavenplus-plugin</artifactId>
+                    <version>1.5</version>
+                 </plugin>
+             </plugins>
+        </pluginManagement>
+    </build>
 </project>
