@@ -16,28 +16,21 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.ekolandia.dispatch.loaddata
-
-import org.ekolandia.dispatch.loaddata.version.Constants
-import org.ekolandia.dispatch.util.VersionFormatter
-import org.springframework.context.annotation.ComponentScan
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestMethod
-import org.springframework.web.bind.annotation.RestController
-
+package org.ekolandia.dispatch.util;
 
 /**
  * @author Michal Bocek
  * @since 1.0.0
  */
-@ComponentScan
-@RestController
-class LoadDataController {
+public final class VersionFormatter {
 
-    @RequestMapping(value = "/version", method = RequestMethod.GET)
-    def getData() {
-        [
-            "version" : VersionFormatter.format(Constants.VERSION)
-        ]
+    private static final String VERSION_SEPATATOR = "."; 
+    
+    public static String format(Long version) {
+        long fix = version % 1000;
+        long minor = (version / 1000) % 1000;
+        long major = (version / 1000000);
+
+        return major + VERSION_SEPATATOR + minor + VERSION_SEPATATOR + fix;
     }
 }
