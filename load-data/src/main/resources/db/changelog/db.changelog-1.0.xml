@@ -84,7 +84,12 @@
             <column name="LAST_IMPORTED" type="java.util.Date">
                 <constraints nullable="false" />
             </column>
-            <column name="STATE" type="java.lang.String(255)" />
+            <column name="STATE" type="java.lang.String(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="DATA_TYPE" type="java.lang.String(255)">
+                <constraints nullable="false" />
+            </column>
         </createTable>
     </changeSet>
     <changeSet author="mbocek" id="add table: material">

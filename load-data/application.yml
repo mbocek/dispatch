@@ -9,7 +9,7 @@ liquibase:
 spring:
     profiles: test
     datasource:
-        url: jdbc:h2:file:./target/db/dispatch-test;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;MODE=PostgreSQL
+        url: jdbc:h2:file:./target/db/dispatch-test;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;MODE=PostgreSQL;TRACE_LEVEL_FILE=2
         driver: org.h2.Driver
         username: sa
         password: sa

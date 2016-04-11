@@ -16,15 +16,15 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.ekolandia.dispatch.loaddata
+package org.ekolandia.dispatch.loaddata.repository
 
 import org.springframework.data.repository.CrudRepository
-import org.ekolandia.dispatch.loaddata.entity.Client
+import org.ekolandia.dispatch.loaddata.entity.ImportData
 
 /**
  * @author Michal Bocek
  * @since 1.0.0
  */
-interface ClientRepository extends CrudRepository<Client, Long> {
+interface ImportDataRepository extends CrudRepository<ImportData, Long> {
 
 }

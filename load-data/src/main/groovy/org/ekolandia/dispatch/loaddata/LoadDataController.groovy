@@ -18,9 +18,15 @@
  */
 package org.ekolandia.dispatch.loaddata
 
+import javax.annotation.Resource;
+
+import org.ekolandia.dispatch.loaddata.dto.ClientDTO
+import org.ekolandia.dispatch.loaddata.service.ImportService;
 import org.ekolandia.dispatch.loaddata.version.Constants
 import org.ekolandia.dispatch.util.VersionFormatter
 import org.springframework.context.annotation.ComponentScan
+import org.springframework.http.MediaType
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.RestController
@@ -34,10 +40,19 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 class LoadDataController {
 
-    @RequestMapping(value = "/version", method = RequestMethod.GET)
-    def getData() {
+    @Resource
+    private ImportService importService;
+    
+    @RequestMapping(path = "/version", method = RequestMethod.GET)
+    def getVersion() {
         [
             "version" : VersionFormatter.format(Constants.VERSION)
         ]
+    }
+    
+    @RequestMapping(path = "/store/client", method = RequestMethod.POST,
+                    consumes = MediaType.APPLICATION_JSON_VALUE)
+    def storeClientData(@RequestBody final ClientDTO client) {
+        importService.importClient(client)
     }
 }
