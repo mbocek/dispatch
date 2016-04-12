@@ -36,7 +36,7 @@
             <column name="CATEGORY" type="java.lang.String(100)">
                 <constraints nullable="false" />
             </column>
-            <column name="CODE" type="java.lang.Long">
+            <column name="CODE" type="java.lang.String(100)">
                 <constraints nullable="false" />
             </column>
             <column name="GROUP_ID" type="java.lang.Long">

@@ -20,14 +20,15 @@ package org.ekolandia.dispatch.loaddata.entity
 
 import groovy.transform.ToString
 
-import javax.persistence.Column;
+import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
 import javax.persistence.Id
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
+import javax.persistence.SequenceGenerator
+import javax.persistence.Table
 
+import org.ekolandia.dispatch.loaddata.dto.ClientDTO
 import org.ekolandia.dispatch.loaddata.version.Constants
 
 
@@ -36,7 +37,7 @@ import org.ekolandia.dispatch.loaddata.version.Constants
  * @since 1.0.0
  */
 @Entity
-@Table(name = "CLIENT_DATA")
+@Table(name = "CLIENT")
 @ToString
 class Client extends BaseEntity implements Serializable {
     
@@ -48,7 +49,7 @@ class Client extends BaseEntity implements Serializable {
     Long id;
     
     @Column(nullable = false)
-    Long code;
+    String code;
     
     @Column(length = 100, nullable = false)
     String category;
@@ -58,4 +59,16 @@ class Client extends BaseEntity implements Serializable {
     
     @Column(length = 200, nullable = false)
     String name;
+    
+    public Client() {
+    }
+    
+    public Client(ClientDTO clientDTO) {
+        this.active = true
+        this.category = clientDTO.category
+        this.code = clientDTO.code
+        this.groupId = clientDTO.groupId
+        this.lastUpdated = new Date()
+        this.name = clientDTO.name
+    }
 }

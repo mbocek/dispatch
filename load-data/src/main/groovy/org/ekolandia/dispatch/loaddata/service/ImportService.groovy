@@ -18,13 +18,15 @@
  */
 package org.ekolandia.dispatch.loaddata.service
 
-import javax.annotation.Resource;
+import javax.annotation.Resource
 
 import org.ekolandia.dispatch.loaddata.dto.ClientDTO
-import org.ekolandia.dispatch.loaddata.entity.ImportData;
-import org.ekolandia.dispatch.loaddata.repository.ImportDataRepository;
-import org.springframework.stereotype.Component
+import org.ekolandia.dispatch.loaddata.entity.Client;
+import org.ekolandia.dispatch.loaddata.entity.ImportData
+import org.ekolandia.dispatch.loaddata.repository.ClientRepository
+import org.ekolandia.dispatch.loaddata.repository.ImportDataRepository
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
 /**
  * @author Michal Bocek
@@ -36,9 +38,45 @@ class ImportService {
     @Resource
     private ImportDataRepository importDataRepository
     
-    def importClient(ClientDTO client) {
+    @Resource
+    private ClientRepository clientRepository 
+    
+    @Transactional
+    def importClient(Collection<ClientDTO> clients) {
         importDataRepository.save(new ImportData(state: ImportData.State.SUCCEED, 
             dataType: ImportData.DataType.CLIENT, lastImported: new Date()))
         
+        //merge data
+        clientRepository.deactivateAllClients()
+        def clientsDb = clientRepository.findAll()
+        Map<String, Client> data = createCodeToClientMap(clientsDb)
+        List<Client> result = generateClientList(clients, data)
+        clientRepository.save(result)
+    }
+    
+    private Map<String, Client> createCodeToClientMap(clientsDb) {
+        def result = new HashMap<String, Client>()
+        clientsDb.each {
+            result.put(it.getCode(), it)
+        }
+        return result
+    }
+    
+    private List<Client> generateClientList(List<ClientDTO> clients, Map<String, Client> data) {
+        List<Client> result = new ArrayList<Client>()
+        clients.each {
+            def client = data.get(it.getCode())
+            if (client != null) {
+                client.active = true
+                client.category = it.category
+                client.groupId = it.groupId
+                client.lastUpdated = new Date()
+                client.name = it.name
+            } else {
+                client = new Client(it)
+            }
+            result << client
+        }
+        return result
     }
 }

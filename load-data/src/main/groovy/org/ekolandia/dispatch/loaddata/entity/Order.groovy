@@ -38,7 +38,7 @@ import org.ekolandia.dispatch.loaddata.version.Constants
  * @since 1.0.0
  */
 @Entity
-@Table(name = "ORDER_DATA")
+@Table(name = "ORDER")
 @ToString
 class Order extends BaseEntity implements Serializable {
     

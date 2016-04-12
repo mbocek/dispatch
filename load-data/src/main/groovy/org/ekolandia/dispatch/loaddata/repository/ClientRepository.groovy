@@ -18,8 +18,10 @@
  */
 package org.ekolandia.dispatch.loaddata.repository
 
-import org.springframework.data.repository.CrudRepository
 import org.ekolandia.dispatch.loaddata.entity.Client
+import org.springframework.data.jpa.repository.Modifying
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository
 
 /**
  * @author Michal Bocek
@@ -27,4 +29,7 @@ import org.ekolandia.dispatch.loaddata.entity.Client
  */
 interface ClientRepository extends CrudRepository<Client, Long> {
 
+    @Modifying
+    @Query("update Client c set c.active = false, c.lastUpdated = CURRENT_DATE")
+    int deactivateAllClients();
 }

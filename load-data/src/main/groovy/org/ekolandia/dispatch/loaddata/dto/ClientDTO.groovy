@@ -31,7 +31,7 @@ class ClientDTO implements Serializable {
 
     private static final long serialVersionUID = Constants.VERSION;
     
-    Long code;
+    String code;
     
     String category;
     

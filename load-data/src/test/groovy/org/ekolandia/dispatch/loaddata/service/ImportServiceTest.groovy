@@ -24,7 +24,7 @@ import javax.annotation.Resource
 
 import org.ekolandia.dispatch.loaddata.ApplicationEntryPoint
 import org.ekolandia.dispatch.loaddata.dto.ClientDTO
-import org.ekolandia.dispatch.loaddata.repository.ImportDataRepository;
+import org.ekolandia.dispatch.loaddata.repository.ClientRepository
 import org.springframework.boot.test.SpringApplicationContextLoader
 import org.springframework.test.context.ContextConfiguration
 
@@ -41,13 +41,16 @@ class ImportServiceTest extends Specification {
     ImportService importService
     
     @Resource
-    ImportDataRepository importDataRepository
+    ClientRepository clientRepository
     
     def "test import client data"() {
         when:
-            importService.importClient(new ClientDTO())
+            def data = new ArrayList<ClientDTO>()
+            data << new ClientDTO(code: "test1", name: "Test Subject", category: "A01", groupId: 1)
+            data << new ClientDTO(code: "test2", name: "Test Subject2", category: "A01", groupId: 1)
+            importService.importClient(data)
         then:
-            def findAll = importDataRepository.findAll();
-            findAll.size() > 0
+            def findAll = clientRepository.findAll();
+            assert findAll.size() == 2
     }
 }

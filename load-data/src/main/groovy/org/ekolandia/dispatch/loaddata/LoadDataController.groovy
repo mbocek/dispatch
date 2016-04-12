@@ -18,6 +18,8 @@
  */
 package org.ekolandia.dispatch.loaddata
 
+import java.util.Collection;
+
 import javax.annotation.Resource;
 
 import org.ekolandia.dispatch.loaddata.dto.ClientDTO
@@ -52,7 +54,7 @@ class LoadDataController {
     
     @RequestMapping(path = "/store/client", method = RequestMethod.POST,
                     consumes = MediaType.APPLICATION_JSON_VALUE)
-    def storeClientData(@RequestBody final ClientDTO client) {
-        importService.importClient(client)
+    def storeClientData(@RequestBody final Collection<ClientDTO> clients) {
+        importService.importClient(clients)
     }
 }
