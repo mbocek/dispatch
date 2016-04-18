@@ -27,7 +27,9 @@ import javax.persistence.GenerationType
 import javax.persistence.Id
 import javax.persistence.SequenceGenerator
 
-import org.ekolandia.dispatch.loaddata.version.Constants
+import org.ekolandia.dispatch.loaddata.Constants
+import org.ekolandia.dispatch.loaddata.dto.ClientDTO
+import org.ekolandia.dispatch.loaddata.dto.MaterialDTO;;;
 
 /**
  * @author Michal Bocek
@@ -55,4 +57,16 @@ class Material extends BaseEntity implements Serializable {
 
     @Column(nullable = false)
     Integer meatWeight
+    
+    public Material() {
+    }
+    
+    public Material(MaterialDTO materialDTO) {
+        this.active = true
+        this.lastUpdated = new Date()
+        this.code = materialDTO.code
+        this.meatWeight = materialDTO.meatWeight
+        this.totalWeight = materialDTO.totalWeight
+        this.name = materialDTO.name
+    }
 }

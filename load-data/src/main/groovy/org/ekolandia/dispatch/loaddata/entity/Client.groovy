@@ -28,8 +28,8 @@ import javax.persistence.Id
 import javax.persistence.SequenceGenerator
 import javax.persistence.Table
 
+import org.ekolandia.dispatch.loaddata.Constants;
 import org.ekolandia.dispatch.loaddata.dto.ClientDTO
-import org.ekolandia.dispatch.loaddata.version.Constants
 
 
 /**
@@ -54,8 +54,8 @@ class Client extends BaseEntity implements Serializable {
     @Column(length = 100, nullable = false)
     String category;
     
-    @Column(nullable = false)
-    Long groupId;
+    @Column(length = 100, nullable = false)
+    String groupId;
     
     @Column(length = 200, nullable = false)
     String name;

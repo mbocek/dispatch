@@ -23,8 +23,7 @@ import java.util.Collection;
 import javax.annotation.Resource;
 
 import org.ekolandia.dispatch.loaddata.dto.ClientDTO
-import org.ekolandia.dispatch.loaddata.service.ImportService;
-import org.ekolandia.dispatch.loaddata.version.Constants
+import org.ekolandia.dispatch.loaddata.service.ImportService
 import org.ekolandia.dispatch.util.VersionFormatter
 import org.springframework.context.annotation.ComponentScan
 import org.springframework.http.MediaType

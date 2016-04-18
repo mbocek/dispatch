@@ -27,15 +27,15 @@ import groovy.transform.ToString
  * @since 1.0.0
  */
 @ToString
-class ClientDTO implements Serializable {
+class MaterialDTO implements Serializable {
 
     private static final long serialVersionUID = Constants.VERSION
-    
+        
     String code
     
-    String category
-    
-    Long groupId
-    
     String name
+    
+    Integer totalWeight
+
+    Integer meatWeight
 }

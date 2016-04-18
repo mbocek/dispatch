@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.ekolandia.dispatch.loaddata.version;
+package org.ekolandia.dispatch.loaddata;
 
 /**
  * @author Michal Bocek

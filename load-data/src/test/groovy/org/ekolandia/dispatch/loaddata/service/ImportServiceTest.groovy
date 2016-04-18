@@ -24,7 +24,9 @@ import javax.annotation.Resource
 
 import org.ekolandia.dispatch.loaddata.ApplicationEntryPoint
 import org.ekolandia.dispatch.loaddata.dto.ClientDTO
+import org.ekolandia.dispatch.loaddata.dto.MaterialDTO;
 import org.ekolandia.dispatch.loaddata.repository.ClientRepository
+import org.ekolandia.dispatch.loaddata.repository.MaterialRepository;
 import org.springframework.boot.test.SpringApplicationContextLoader
 import org.springframework.test.context.ContextConfiguration
 
@@ -43,6 +45,9 @@ class ImportServiceTest extends Specification {
     @Resource
     ClientRepository clientRepository
     
+    @Resource
+    MaterialRepository materialRepository
+    
     def "test import client data"() {
         when:
             def data = new ArrayList<ClientDTO>()
@@ -53,4 +58,16 @@ class ImportServiceTest extends Specification {
             def findAll = clientRepository.findAll();
             assert findAll.size() == 2
     }
+
+    def "test import material data"() {
+        when:
+            def data = new ArrayList<MaterialDTO>()
+            data << new MaterialDTO(code: "test1", name: "Test Subject", totalWeight: 100, meatWeight: 80)
+            data << new MaterialDTO(code: "test2", name: "Test Subject2", totalWeight: 100, meatWeight: 80)
+            importService.importMaterial(data)
+        then:
+            def findAll = materialRepository.findAll();
+            assert findAll.size() == 2
+    }
+
 }

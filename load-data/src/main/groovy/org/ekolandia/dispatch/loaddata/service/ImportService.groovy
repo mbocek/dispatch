@@ -21,10 +21,13 @@ package org.ekolandia.dispatch.loaddata.service
 import javax.annotation.Resource
 
 import org.ekolandia.dispatch.loaddata.dto.ClientDTO
+import org.ekolandia.dispatch.loaddata.dto.MaterialDTO;
 import org.ekolandia.dispatch.loaddata.entity.Client;
 import org.ekolandia.dispatch.loaddata.entity.ImportData
+import org.ekolandia.dispatch.loaddata.entity.Material;
 import org.ekolandia.dispatch.loaddata.repository.ClientRepository
 import org.ekolandia.dispatch.loaddata.repository.ImportDataRepository
+import org.ekolandia.dispatch.loaddata.repository.MaterialRepository;
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
@@ -41,17 +44,33 @@ class ImportService {
     @Resource
     private ClientRepository clientRepository 
     
+    @Resource
+    private MaterialRepository materialRepository 
+    
     @Transactional
     def importClient(Collection<ClientDTO> clients) {
         importDataRepository.save(new ImportData(state: ImportData.State.SUCCEED, 
             dataType: ImportData.DataType.CLIENT, lastImported: new Date()))
         
         //merge data
-        clientRepository.deactivateAllClients()
+        clientRepository.deactivateAll()
         def clientsDb = clientRepository.findAll()
         Map<String, Client> data = createCodeToClientMap(clientsDb)
         List<Client> result = generateClientList(clients, data)
         clientRepository.save(result)
+    }
+    
+    @Transactional
+    def importMaterial(Collection<MaterialDTO> materials) {
+        importDataRepository.save(new ImportData(state: ImportData.State.SUCCEED,
+            dataType: ImportData.DataType.MATERIAL, lastImported: new Date()))
+        
+        //merge data
+        materialRepository.deactivateAll();
+        def materialsDb = materialRepository.findAll()
+        Map<String, Material> data = createCodeToMaterialMap(materialsDb)
+        List<Material> result = generateMaterialList(materials, data)
+        materialRepository.save(result)
     }
     
     private Map<String, Client> createCodeToClientMap(clientsDb) {
@@ -79,4 +98,32 @@ class ImportService {
         }
         return result
     }
+    
+    private Map<String, Material> createCodeToMaterialMap(materialDb) {
+        def result = new HashMap<String, Material>()
+        materialDb.each {
+            result.put(it.getCode(), it)
+        }
+        return result
+    }
+    
+    private List<Material> generateMaterialList(List<MaterialDTO> materials, Map<String, Material> data) {
+        List<Material> result = new ArrayList<Material>()
+        materials.each {
+            def material = data.get(it.getCode())
+            if (material != null) {
+                material.active = true
+                material.totalWeight = it.totalWeight
+                material.meatWeight = it.meatWeight
+                material.lastUpdated = new Date()
+                material.name = it.name
+                material.code = it.code
+            } else {
+                material = new Material(it)
+            }
+            result << material
+        }
+        return result
+    }
+ 
 }

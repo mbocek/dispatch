@@ -16,26 +16,20 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.ekolandia.dispatch.loaddata.dto
+package org.ekolandia.dispatch.loaddata.repository
 
-import org.ekolandia.dispatch.loaddata.Constants
-
-import groovy.transform.ToString
+import org.ekolandia.dispatch.loaddata.entity.Material
+import org.springframework.data.jpa.repository.Modifying
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository
 
 /**
  * @author Michal Bocek
  * @since 1.0.0
  */
-@ToString
-class ClientDTO implements Serializable {
+interface MaterialRepository extends CrudRepository<Material, Long> {
 
-    private static final long serialVersionUID = Constants.VERSION
-    
-    String code
-    
-    String category
-    
-    Long groupId
-    
-    String name
+    @Modifying
+    @Query("update Material m set m.active = false, m.lastUpdated = CURRENT_DATE")
+    int deactivateAll();
 }

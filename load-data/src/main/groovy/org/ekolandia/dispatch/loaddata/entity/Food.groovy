@@ -30,7 +30,7 @@ import javax.persistence.JoinTable
 import javax.persistence.ManyToMany
 import javax.persistence.SequenceGenerator
 
-import org.ekolandia.dispatch.loaddata.version.Constants
+import org.ekolandia.dispatch.loaddata.Constants;
 
 /**
  * @author Michal Bocek

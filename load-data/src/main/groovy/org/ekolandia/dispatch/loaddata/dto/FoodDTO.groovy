@@ -18,24 +18,22 @@
  */
 package org.ekolandia.dispatch.loaddata.dto
 
-import org.ekolandia.dispatch.loaddata.Constants
+import org.ekolandia.dispatch.loaddata.Constants;
 
-import groovy.transform.ToString
+import groovy.transform.ToString;;
 
 /**
  * @author Michal Bocek
  * @since 1.0.0
  */
 @ToString
-class ClientDTO implements Serializable {
+class FoodDTO implements Serializable {
 
     private static final long serialVersionUID = Constants.VERSION
-    
-    String code
-    
-    String category
-    
-    Long groupId
+        
+    Long sortId
     
     String name
+    
+    Collection<String> materialCodes
 }

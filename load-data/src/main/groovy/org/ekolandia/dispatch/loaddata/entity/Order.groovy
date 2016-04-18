@@ -31,7 +31,7 @@ import javax.persistence.ManyToOne
 import javax.persistence.SequenceGenerator
 import javax.persistence.Table
 
-import org.ekolandia.dispatch.loaddata.version.Constants
+import org.ekolandia.dispatch.loaddata.Constants;
 
 /**
  * @author Michal Bocek

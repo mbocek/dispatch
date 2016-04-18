@@ -31,5 +31,5 @@ interface ClientRepository extends CrudRepository<Client, Long> {
 
     @Modifying
     @Query("update Client c set c.active = false, c.lastUpdated = CURRENT_DATE")
-    int deactivateAllClients();
+    int deactivateAll();
 }

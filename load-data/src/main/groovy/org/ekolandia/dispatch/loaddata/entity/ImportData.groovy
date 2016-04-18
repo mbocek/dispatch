@@ -29,7 +29,7 @@ import javax.persistence.GenerationType
 import javax.persistence.Id
 import javax.persistence.SequenceGenerator
 
-import org.ekolandia.dispatch.loaddata.version.Constants
+import org.ekolandia.dispatch.loaddata.Constants;
 
 /**
  * @author Michal Bocek
@@ -46,7 +46,7 @@ class ImportData implements Serializable {
     }
 
     public static enum DataType {
-        CLIENT;
+        CLIENT, MATERIAL;
     }
 
     @Id
