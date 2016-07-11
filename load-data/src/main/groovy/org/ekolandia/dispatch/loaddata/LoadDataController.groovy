@@ -23,6 +23,7 @@ import java.util.Collection;
 import javax.annotation.Resource;
 
 import org.ekolandia.dispatch.loaddata.dto.ClientDTO
+import org.ekolandia.dispatch.loaddata.dto.MaterialDTO;
 import org.ekolandia.dispatch.loaddata.service.ImportService
 import org.ekolandia.dispatch.util.VersionFormatter
 import org.springframework.context.annotation.ComponentScan
@@ -55,5 +56,11 @@ class LoadDataController {
                     consumes = MediaType.APPLICATION_JSON_VALUE)
     def storeClientData(@RequestBody final Collection<ClientDTO> clients) {
         importService.importClient(clients)
+    }
+
+    @RequestMapping(path = "/store/material", method = RequestMethod.POST,
+                    consumes = MediaType.APPLICATION_JSON_VALUE)
+    def storeMaterialData(@RequestBody final Collection<MaterialDTO> materials) {
+        importService.importMaterial(materials)
     }
 }

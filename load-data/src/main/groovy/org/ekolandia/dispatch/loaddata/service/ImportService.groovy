@@ -31,10 +31,13 @@ import org.ekolandia.dispatch.loaddata.repository.MaterialRepository;
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
+import groovy.util.logging.Slf4j;
+
 /**
  * @author Michal Bocek
  * @since 1.0.0
  */
+@Slf4j
 @Service
 class ImportService {
 
@@ -84,6 +87,7 @@ class ImportService {
     private List<Client> generateClientList(List<ClientDTO> clients, Map<String, Client> data) {
         List<Client> result = new ArrayList<Client>()
         clients.each {
+            log.debug("Going to store client: {}", it)
             def client = data.get(it.getCode())
             if (client != null) {
                 client.active = true
@@ -110,6 +114,7 @@ class ImportService {
     private List<Material> generateMaterialList(List<MaterialDTO> materials, Map<String, Material> data) {
         List<Material> result = new ArrayList<Material>()
         materials.each {
+            log.debug("Going to store material: {}", it)
             def material = data.get(it.getCode())
             if (material != null) {
                 material.active = true
