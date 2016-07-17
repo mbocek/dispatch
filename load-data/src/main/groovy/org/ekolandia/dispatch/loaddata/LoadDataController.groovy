@@ -66,10 +66,9 @@ class LoadDataController {
         importService.importMaterial(materials)
     }
 
-
     @RequestMapping(path = "/store/food", method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE)
-    def storeMaterialData(@RequestBody final Collection<FoodDTO> foods) {
+    def storeFoodData(@RequestBody final Collection<FoodDTO> foods) {
         importService.importFood(foods)
     }
 }
