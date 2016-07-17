@@ -18,20 +18,18 @@
  */
 package org.ekolandia.dispatch.loaddata.repository
 
-import org.ekolandia.dispatch.loaddata.entity.Material
+import org.ekolandia.dispatch.loaddata.entity.Food
 import org.springframework.data.jpa.repository.Modifying
-import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.CrudRepository
 
 /**
  * @author Michal Bocek
  * @since 1.0.0
  */
-interface MaterialRepository extends CrudRepository<Material, Long> {
+interface FoodRepository extends CrudRepository<Food, Long> {
 
     @Modifying
-    @Query("update Material m set m.active = false, m.lastUpdated = CURRENT_DATE")
+    @Query("update Food m set m.active = false, m.lastUpdated = CURRENT_DATE")
     int deactivateAll();
-
-    Material findByCode(String code);
 }

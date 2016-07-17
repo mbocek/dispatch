@@ -18,6 +18,10 @@
  */
 package org.ekolandia.dispatch.loaddata.service
 
+import org.ekolandia.dispatch.loaddata.dto.FoodDTO
+import org.ekolandia.dispatch.loaddata.entity.Food
+import org.ekolandia.dispatch.loaddata.repository.FoodRepository
+
 import javax.annotation.Resource
 
 import org.ekolandia.dispatch.loaddata.dto.ClientDTO
@@ -48,7 +52,10 @@ class ImportService {
     private ClientRepository clientRepository 
     
     @Resource
-    private MaterialRepository materialRepository 
+    private MaterialRepository materialRepository
+
+    @Resource
+    private FoodRepository foodRepository;
     
     @Transactional
     def importClient(Collection<ClientDTO> clients) {
@@ -75,11 +82,62 @@ class ImportService {
         List<Material> result = generateMaterialList(materials, data)
         materialRepository.save(result)
     }
-    
-    private Map<String, Client> createCodeToClientMap(clientsDb) {
-        def result = new HashMap<String, Client>()
-        clientsDb.each {
+
+    @Transactional
+    def importFood(Collection<FoodDTO> foods) {
+        importDataRepository.save(new ImportData(state: ImportData.State.SUCCEED,
+                dataType: ImportData.DataType.FOOD, lastImported: new Date()))
+
+        //merge data
+        foodRepository.deactivateAll();
+        def foodsDb = foodRepository.findAll()
+        Map<String, Material> data = createCodeToFoodMap(foodsDb)
+        List<Food> result = generateFoodList(foods, data)
+        materialRepository.save(result)
+    }
+
+    private Map<String,Material> createCodeToFoodMap(Iterable<Food> foodsDb) {
+        def result = new HashMap<String, Food>()
+        foodsDb.each {
             result.put(it.getCode(), it)
+        }
+        return result
+    }
+
+    private List<Food> generateFoodList(List<FoodDTO> foods, Map<String, Food> data) {
+        List<Food> result = new ArrayList<>()
+        foods.each {
+            log.debug("Going to store food: {}", it)
+            def food = data.get(it.sortId)
+            if (food != null) {
+                food.active = true
+                food.lastUpdated = new Date()
+                food.name = it.name
+                food.materials.clear()
+                it.materialCodes.each { materialCode ->
+                    def material = materialRepository.findByCode(materialCode)
+                    food.materials.add(material)
+                }
+            } else {
+                food = new Food()
+                food.active = true
+                food.lastUpdated = new Date()
+                food.sortId = it.sortId
+                food.name = it.name
+                it.materialCodes.each { materialCode ->
+                    def material = materialRepository.findByCode(materialCode)
+                    food.materials.add(material)
+                }
+            }
+            result << food
+        }
+        return result
+    }
+
+    private Map<String, Client> createCodeToClientMap(clientsDb) {
+        def result = new HashMap<String, Food>()
+        clientsDb.each {
+            result.put(it.sortId, it)
         }
         return result
     }

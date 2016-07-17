@@ -57,6 +57,5 @@ class Food extends BaseEntity implements Serializable {
     @JoinTable(name="FOOD_MATERIAL", joinColumns=
         @JoinColumn(name="FOOD_ID", referencedColumnName="ID"), inverseJoinColumns=
         @JoinColumn(name="MATERIAL_ID", referencedColumnName="ID"))
-    private final List<Material> materials = new ArrayList<Material>();
-
+    List<Material> materials = new ArrayList<Material>();
 }

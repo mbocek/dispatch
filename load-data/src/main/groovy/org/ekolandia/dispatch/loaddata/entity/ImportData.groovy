@@ -46,7 +46,7 @@ class ImportData implements Serializable {
     }
 
     public static enum DataType {
-        CLIENT, MATERIAL;
+        CLIENT, MATERIAL, FOOD;
     }
 
     @Id

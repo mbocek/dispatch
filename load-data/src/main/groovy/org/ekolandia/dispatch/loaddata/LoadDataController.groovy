@@ -18,6 +18,8 @@
  */
 package org.ekolandia.dispatch.loaddata
 
+import org.ekolandia.dispatch.loaddata.dto.FoodDTO
+
 import java.util.Collection;
 
 import javax.annotation.Resource;
@@ -62,5 +64,12 @@ class LoadDataController {
                     consumes = MediaType.APPLICATION_JSON_VALUE)
     def storeMaterialData(@RequestBody final Collection<MaterialDTO> materials) {
         importService.importMaterial(materials)
+    }
+
+
+    @RequestMapping(path = "/store/food", method = RequestMethod.POST,
+            consumes = MediaType.APPLICATION_JSON_VALUE)
+    def storeMaterialData(@RequestBody final Collection<FoodDTO> foods) {
+        importService.importFood(foods)
     }
 }

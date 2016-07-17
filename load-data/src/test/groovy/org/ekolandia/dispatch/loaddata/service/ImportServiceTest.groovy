@@ -18,6 +18,11 @@
  */
 package org.ekolandia.dispatch.loaddata.service
 
+import org.ekolandia.dispatch.loaddata.dto.FoodDTO
+import org.ekolandia.dispatch.loaddata.repository.FoodRepository
+
+import javax.transaction.Transactional
+
 import static org.junit.Assert.*
 
 import javax.annotation.Resource
@@ -36,6 +41,7 @@ import spock.lang.Specification
  * @author Michal Bocek
  * @since 1.0.0
  */
+@Transactional
 @ContextConfiguration(loader = SpringApplicationContextLoader, classes = ApplicationEntryPoint)
 class ImportServiceTest extends Specification {
     
@@ -47,7 +53,10 @@ class ImportServiceTest extends Specification {
     
     @Resource
     MaterialRepository materialRepository
-    
+
+    @Resource
+    FoodRepository foodRepository
+
     def "test import client data"() {
         when:
             def data = new ArrayList<ClientDTO>()
@@ -70,4 +79,20 @@ class ImportServiceTest extends Specification {
             assert findAll.size() == 2
     }
 
+    def "test import food"() {
+        when:
+        def data = new ArrayList<MaterialDTO>()
+        data << new MaterialDTO(code: "test1", name: "Test Subject", totalWeight: 100, meatWeight: 80)
+        data << new MaterialDTO(code: "test2", name: "Test Subject2", totalWeight: 100, meatWeight: 80)
+        importService.importMaterial(data)
+        def food = new ArrayList<FoodDTO>()
+        food << new FoodDTO(sortId: 1, name: "Food 1", materialCodes: ["test1"])
+        food << new FoodDTO(sortId: 2, name: "Food 2", materialCodes: ["test1", "test2"])
+        importService.importFood(food)
+        then:
+        def findAll = foodRepository.findAll();
+        findAll.size() == 2
+        findAll.getAt(0).materials.size() == 1
+        findAll.getAt(1).materials.size() == 2
+    }
 }
