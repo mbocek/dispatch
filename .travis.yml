@@ -4,5 +4,4 @@ jdk: oraclejdk8
 script: mvn clean package -B
 
 after_success:
-  - mvn -pl util jacoco:report coveralls:report
-  - mvn -pl load-data jacoco:report coveralls:report
+  - mvn -pl util,load-data jacoco:report coveralls:report
